@@ -11,27 +11,33 @@ public class Player : MonoBehaviour
     [SerializeField] private CharacterController character;
     [SerializeField] private Vector3 moveDir;
     void Start()
-    {
+    {   
         curSpeed = speed;
     }
     void Update()
     {
-
+        Move();
     }
     private void FixedUpdate()
     {
+
+    }
+    void Move()
+    {
         if (character.isGrounded == true)
         {
-            moveDir.x = Input.GetAxis("Horizontal");
-            moveDir.z = Input.GetAxis("Vertical");
+            Debug.Log("isGrounded");
+            moveDir.x = Input.GetAxisRaw("Horizontal");
+            moveDir.z = Input.GetAxisRaw("Vertical");
             moveDir.y = 0;
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                moveDir.y = curJumpSpeed;
+                Debug.Log("Jump!");
+                moveDir.y = jumpSpeed;
             }
             moveDir = this.transform.TransformDirection(moveDir);
         }
-        moveDir.y -= 9.8f;
-        character.Move(moveDir * Time.deltaTime * curSpeed);
+        moveDir.y -= 9.8f * Time.deltaTime;
+        character.Move(moveDir * Time.deltaTime * speed);
     }
 }
