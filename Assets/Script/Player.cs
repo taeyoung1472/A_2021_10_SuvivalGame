@@ -26,13 +26,11 @@ public class Player : MonoBehaviour
     {
         if (character.isGrounded == true)
         {
-            Debug.Log("isGrounded");
             moveDir.x = Input.GetAxisRaw("Horizontal");
             moveDir.z = Input.GetAxisRaw("Vertical");
             moveDir.y = 0;
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("Jump!");
                 moveDir.y = jumpSpeed;
             }
             moveDir = this.transform.TransformDirection(moveDir);
