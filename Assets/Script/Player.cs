@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     private float CurjumpSpeed;
     float curCameraRotaiton;
     bool isCrouch;
+    float curRange;
+    [SerializeField] private float soundRange;
     [SerializeField] private Transform camera;
     [SerializeField] private Animator handAnim;
     [SerializeField] private float JumpForce;
@@ -18,7 +20,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Vector3 moveDir;
     [SerializeField] private Vector2 cameraLimit;
     void Start()
-    {   
+    {
+        curRange = soundRange;
         curSpeed = speed;
     }
     void Update()
@@ -28,7 +31,26 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
+        CheckZom();
+    }
+    void CheckZom()
+    {
+        Collider[] cols = Physics.OverlapSphere(transform.position, curRange);
+        for (int i = 0; i < cols.Length; i++)
+        {
+            if (cols[i].transform.tag == "Zombie")
+            {
+                if (cols[i].transform.GetComponent<Zombie>())
+                {
+                    Debug.Log("¿˚¿Ã¥Ÿ!");
+                    cols[i].transform.GetComponent<Zombie>().Find(transform);
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
     }
     void Move()
     {
@@ -38,12 +60,14 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
+                    curRange = soundRange * 2;
                     curSpeed = Runspeed;
                     handAnim.SetBool("IsRun", true);
                     handAnim.SetBool("IsMove", false);
                 }
                 else
                 {
+                    curRange = soundRange;
                     curSpeed = speed;
                     handAnim.SetBool("IsRun", false);
                     handAnim.SetBool("IsMove", true);
@@ -62,7 +86,9 @@ public class Player : MonoBehaviour
             }
             moveDir = transform.TransformDirection(moveDir);
             if (Input.GetKey(KeyCode.Space))
+            {
                 moveDir.y = 3;
+            }
         }
         moveDir.y -= 9.8f * Time.deltaTime;
         character.Move(moveDir * speed * Time.deltaTime);

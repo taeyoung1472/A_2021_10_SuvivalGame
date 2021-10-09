@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 96944f43e9bc3474e83f940de965bbf9, type: 2}
 --- !u!1001 &53582112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -311,6 +311,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70bf8c22d809f0b4f978fae209aeeca6, type: 3}
+--- !u!1 &159431581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5412471849917846727, guid: d4b671c7560be1a4188594c585edd535, type: 3}
+  m_PrefabInstance: {fileID: 1197006879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &159431582
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159431581}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: abd28fbc00993f743a4728ed4b2de167, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &174387465
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1420,13 +1444,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0f9513f5d3088488adc9cfbb311c28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shoot: {fileID: 709857280}
+  gunIndex: 0
+  shoot:
+  - {fileID: 709857280}
+  - {fileID: 709857280}
+  - {fileID: 709857280}
+  - {fileID: 709857280}
+  - {fileID: 709857280}
+  - {fileID: 709857280}
+  - {fileID: 709857280}
+  - {fileID: 709857280}
+  anim:
+  - {fileID: 1761139846}
+  - {fileID: 1761139846}
+  - {fileID: 1761139846}
+  - {fileID: 1761139846}
+  - {fileID: 1761139846}
+  - {fileID: 1761139846}
+  - {fileID: 1761139846}
+  - {fileID: 1761139846}
+  anim_Zoom:
+  - {fileID: 159431582}
+  - {fileID: 159431582}
+  - {fileID: 159431582}
+  - {fileID: 159431582}
+  - {fileID: 159431582}
+  - {fileID: 159431582}
+  - {fileID: 159431582}
+  - {fileID: 159431582}
+  delay:
+  - 0.15
+  - 0.1
+  - 0.05
+  - 0.05
+  - 0.05
+  - 0.05
+  - 0.05
+  - 0.05
+  magazinBullet: 1e00000064000000c8000000c8000000c8000000c8000000c8000000c8000000
   bulletUI: {fileID: 1030896351}
   firePos: {fileID: 963194228}
-  delay: 0.15
-  magazinBullet: 30
-  anim: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 1766989085}
 --- !u!82 &709857280
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1964,10 +2022,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 259
+    m_FontSize: 200
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 261
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -2740,6 +2798,30 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6341736656809691701, guid: 2ec604ea7d4cfb946b031c78977e73b6, type: 3}
   m_PrefabInstance: {fileID: 570361121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1761139844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7283555801890847076, guid: d4b671c7560be1a4188594c585edd535, type: 3}
+  m_PrefabInstance: {fileID: 1197006879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1761139846
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761139844}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: abd28fbc00993f743a4728ed4b2de167, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1766989081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2756,7 +2838,7 @@ GameObject:
   - component: {fileID: 1766989086}
   - component: {fileID: 1766989088}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2851,6 +2933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 135ca6fb92924a64eb6175f3426752b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundRange: 5
   camera: {fileID: 963194228}
   handAnim: {fileID: 1030010923}
   JumpForce: 3
@@ -3379,6 +3462,42 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1046446337790263506, guid: 4e5d0daefaaf553449b490651cc7113a, type: 3}
   m_PrefabInstance: {fileID: 2059084425}
   m_PrefabAsset: {fileID: 0}
+--- !u!195 &2059084427
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059084426}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.24
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &2059084428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2059084426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdc1cb538a0b8af4ca65791ff2d6669f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  navMesh: {fileID: 2059084427}
 --- !u!54 &2059084430
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3395,19 +3514,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
---- !u!114 &2059084431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2059084426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdc1cb538a0b8af4ca65791ff2d6669f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 100
 --- !u!65 &2059084432
 BoxCollider:
   m_ObjectHideFlags: 0
