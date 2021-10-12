@@ -47,8 +47,8 @@ public class Gun : MonoBehaviour
             timer = 0;
             bullet--;
             bulletUI.text = string.Format("{0} / {1}", bullet, magazinBullet);
-            //anim.Play("Shoot");
-            if (Physics.Raycast(firePos.position,firePos.forward,out hit, Mathf.Infinity))
+            Debug.DrawRay(firePos.position, firePos.forward * 10000, Color.green, 10);
+            if (Physics.Raycast(firePos.position,firePos.forward * 10000, out hit))
             {
                 Debug.Log(hit.transform.name);
                 if (hit.transform.CompareTag("Enemy"))
