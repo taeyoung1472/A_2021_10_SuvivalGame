@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private float CurjumpSpeed;
     float curCameraRotaiton;
     bool isCrouch;
-    float curRange;
+    public float curRange;
     [SerializeField] private float soundRange;
     [SerializeField] private Transform camera;
     [SerializeField] private Animator handAnim;
@@ -26,25 +26,23 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        CheckZom();
         Move();
         Rotation();
     }
     private void FixedUpdate()
     {
-        CheckZom();
     }
     void CheckZom()
     {
         Collider[] cols = Physics.OverlapSphere(transform.position, curRange);
         for (int i = 0; i < cols.Length; i++)
         {
-            if (cols[i].transform.tag == "Zombie")
+            Debug.Log(cols[i].name);
+            if (cols[i].transform.tag == "Enemy")
             {
-                if (cols[i].transform.GetComponent<Zombie>())
-                {
-                    Debug.Log("적이다!");
-                    cols[i].transform.GetComponent<Zombie>().Find(transform);
-                }
+                Debug.Log("적이다!");
+                cols[i].transform.GetComponent<Zombie>().Find(transform);
             }
             else
             {
