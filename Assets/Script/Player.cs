@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
-    private float curSpeed;
+    [SerializeField] private float curSpeed;
     private float CurjumpSpeed;
     float curCameraRotaiton;
     bool isCrouch;
     public float curRange;
+    private float curHp;
+    private float curStemina;
+    [SerializeField] private Slider hpSlider;
+    [SerializeField] private Slider steminaSlider;
+    [SerializeField] private float maxStemina;
+    [SerializeField] private float maxHp;
     [SerializeField] private float soundRange;
     [SerializeField] private Transform camera;
     [SerializeField] private Animator handAnim;
@@ -21,34 +27,24 @@ public class Player : MonoBehaviour
     [SerializeField] private Vector2 cameraLimit;
     void Start()
     {
+        StartCoroutine(CheckEnemy());
+        curStemina = maxStemina;
+        curHp = maxHp;
         curRange = soundRange;
         curSpeed = speed;
     }
     void Update()
     {
-        CheckZom();
         Move();
         Rotation();
     }
-    private void FixedUpdate()
-    {
-    }
-    void CheckZom()
-    {
-        Collider[] cols = Physics.OverlapSphere(transform.position, curRange);
-        for (int i = 0; i < cols.Length; i++)
+    public void Damaged(int damage) {
+        curHp -= damage;
+        if (curHp <= 0)
         {
-            Debug.Log(cols[i].name);
-            if (cols[i].transform.tag == "Enemy")
-            {
-                Debug.Log("적이다!");
-                cols[i].transform.GetComponent<Zombie>().Find(transform);
-            }
-            else
-            {
-                return;
-            }
+            //죽음
         }
+        hpSlider.value = curHp / maxHp;
     }
     void Move()
     {
@@ -58,13 +54,25 @@ public class Player : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    curRange = soundRange * 2;
-                    curSpeed = Runspeed;
-                    handAnim.SetBool("IsRun", true);
-                    handAnim.SetBool("IsMove", false);
+                    if(curStemina <= 0)
+                    {
+                        curSpeed = speed;
+                    }
+                    else
+                    {
+                        curStemina -= Time.deltaTime;
+                        curRange = soundRange * 2;
+                        curSpeed = Runspeed;
+                        handAnim.SetBool("IsRun", true);
+                        handAnim.SetBool("IsMove", false);
+                    }
                 }
                 else
                 {
+                    if(curStemina < maxStemina)
+                    {
+                        curStemina += Time.deltaTime * 2;
+                    }
                     curRange = soundRange;
                     curSpeed = speed;
                     handAnim.SetBool("IsRun", false);
@@ -89,13 +97,35 @@ public class Player : MonoBehaviour
             }
         }
         moveDir.y -= 9.8f * Time.deltaTime;
-        character.Move(moveDir * speed * Time.deltaTime);
+        character.Move(moveDir * curSpeed * Time.deltaTime);
         transform.Rotate(0f, Input.GetAxis("Mouse X") * lookSensitivity, 0f, Space.World);//Y위치 변경, 마우스 X 받아오기
+        steminaSlider.value = curStemina / maxStemina;
+    }
+    public void Rebound(float reboundX, float reboundY)
+    {
+        curCameraRotaiton += reboundY;
+        transform.Rotate(0f, Input.GetAxis("Mouse X") * lookSensitivity + reboundX, 0f, Space.World);
     }
     public void Rotation()
     {
         curCameraRotaiton -= Input.GetAxis("Mouse Y") * lookSensitivity;
         curCameraRotaiton = Mathf.Clamp(curCameraRotaiton, cameraLimit.x, cameraLimit.y);
         camera.localEulerAngles = new Vector3(curCameraRotaiton, 0, 0);
+    }
+    public IEnumerator CheckEnemy()
+    {
+        while (true)
+        {
+            Collider[] cols = Physics.OverlapSphere(transform.position, curRange);
+            for (int i = 0; i < cols.Length; i++)
+            {
+                //Debug.Log(cols[i].name);
+                if (cols[i].CompareTag("Enemy"))
+                {
+                    cols[i].transform.GetComponent<Zombie>().Find(transform.position);
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }

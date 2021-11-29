@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Zombie : MonoBehaviour
 {
+    bool isDead;
+    [SerializeField] private Animator anim;
     [SerializeField] private float hp;
     [SerializeField] private NavMeshAgent navMesh;
     public void Damaged(int damage)
@@ -12,11 +14,30 @@ public class Zombie : MonoBehaviour
         Debug.Log(hp);
         if (hp <= 0)
         {
-            Destroy(gameObject);
+            anim.SetBool("IsDead",true);
+            StartCoroutine(WaitForDead());
+            Destroy(gameObject,10f);
         }
     }
-    public void Find(Transform player)
+    public void Find(Vector3 playerPos)
     {
-        navMesh.SetDestination(player.position);
+        if (!isDead)
+        {
+            anim.SetBool("IsMove", true);
+            navMesh.SetDestination(playerPos);
+        }
+    }
+    private IEnumerator WaitForDead()
+    {
+        yield return new WaitForSeconds(1f);
+        isDead = true;
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Player") && !isDead)
+        {
+            anim.Play("Attack");
+            collision.transform.GetComponent<Player>().Damaged(10);
+        }
     }
 }

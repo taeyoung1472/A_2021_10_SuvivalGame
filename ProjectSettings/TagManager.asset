@@ -8,6 +8,7 @@ TagManager:
   - Enemy_Head
   - Enemy_Leg
   - Enemy_Chest
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Item
   - 
   - 
   - 
